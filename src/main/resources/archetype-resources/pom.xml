@@ -1,0 +1,80 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>${groupId}</groupId>
+  <artifactId>${artifactId}</artifactId>
+  <version>${version}</version>
+  <packaging>jar</packaging>
+  <properties>
+    <versions.maven>3.16.0</versions.maven>
+    <versions.java>25</versions.java>
+    <versions.junit>5.12.2</versions.junit>
+    <versions.mysql-connector-j>9.2.0</versions.mysql-connector-j>
+    <versions.exec-plugin>3.6.4</versions.exec-plugin>
+    <mainClass>${package}.App</mainClass>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>com.mysql</groupId>
+      <artifactId>mysql-connector-j</artifactId>
+      <version>${versions.mysql-connector-j}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${versions.junit}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>${versions.exec-plugin}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <mainClass>${mainClass}</mainClass>
+          <arguments>
+            <argument>enable-preview</argument>
+          </arguments>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>${mainClass}</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${versions.maven}</version>
+        <configuration>
+          <enablePreview>true</enablePreview>
+          <source>${versions.java}</source>
+          <release>${versions.java}</release>
+        </configuration>
+        <!-- <configuration> -->
+        <!--   <annotationProcessorPaths> -->
+        <!--     <path> -->
+        <!--       <groupId>org.hibernate.orm</groupId> -->
+        <!--       <artifactId>hibernate-processor</artifactId> -->
+        <!--       <version>${version.hibernate}</version> -->
+        <!--     </path> -->
+        <!--   </annotationProcessorPaths> -->
+        <!-- </configuration> -->
+      </plugin>
+    </plugins>
+  </build>
+</project>
